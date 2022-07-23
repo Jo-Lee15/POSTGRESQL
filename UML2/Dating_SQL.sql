@@ -1,6 +1,8 @@
+--My Contacts
+
 CREATE TABLE IF NOT EXISTS public.my_contacts
 (
-    "contact-id" bigserial NOT NULL,
+    "contact_id" bigserial NOT NULL,
     last_name character varying(50) NOT NULL,
     first_name character varying(50) NOT NULL,
     phone numeric(15) NOT NULL,
@@ -10,7 +12,7 @@ CREATE TABLE IF NOT EXISTS public.my_contacts
     prof_id bigint NOT NULL,
     zip_code bigint NOT NULL,
     status_id bigint NOT NULL,
-    PRIMARY KEY ("contact-id")
+    PRIMARY KEY ("contact_id")
 );
 
 
@@ -23,6 +25,7 @@ VALUES ('Bandicoot', 'Crash', '1010101010', 'mf@nothing.com', 'M', '1920-10-10',
        
 SELECT * FROM my_contacts;
 
+--Profession
 
 CREATE TABLE IF NOT EXISTS public.profession
 (
@@ -41,6 +44,7 @@ VALUES ('Actor'),
        
 SELECT * FROM profession;
 
+--Zip Code
 
 CREATE TABLE IF NOT EXISTS public.zip_code
 (
@@ -64,6 +68,9 @@ VALUES (5432, 'Port Elizabeth', 'Eastern Cape'),
        
 SELECT * FROM zip_code;
 
+--Status
+
+
 CREATE TABLE IF NOT EXISTS public.status
 (
     status_id bigserial NOT NULL,
@@ -79,6 +86,8 @@ VALUES ('Single'),
        ('Widowed');
        
 SELECT * FROM status; 
+
+--Contact Interest
 
 CREATE TABLE IF NOT EXISTS public.contact_interest
 (
@@ -101,6 +110,8 @@ VALUES (1,1),
 
 SELECT * FROM contact_interest;
 
+--Contact Seeking
+
 CREATE TABLE IF NOT EXISTS public.contact_seeking
 (
     contact_id bigint NOT NULL,
@@ -117,14 +128,16 @@ VALUES (1,1),
 
 SELECT * FROM contact_seeking;
 
+--Interests
+
 CREATE TABLE IF NOT EXISTS public.interests
 (
     interest_id bigserial NOT NULL,
-    interest character varying(200) NOT NULL,
+    interests character varying(200) NOT NULL,
     PRIMARY KEY (interest_id)
 );
 
-INSERT INTO interests (interest)
+INSERT INTO interests (interests)
 VALUES ('Baseball'),
        ('Tennis'),
        ('Eating'),
@@ -138,13 +151,13 @@ VALUES ('Baseball'),
        
 SELECT * FROM interests; 
 
-
+--Seeking
 
 CREATE TABLE IF NOT EXISTS public.seeking
 (
-    "seeking-id" bigserial NOT NULL,
+    "seeking_id" bigserial NOT NULL,
     seeking character varying(200) NOT NULL,
-    PRIMARY KEY ("seeking-id")
+    PRIMARY KEY ("seeking_id")
 );
 
 INSERT INTO seeking (seeking)
@@ -155,6 +168,8 @@ VALUES ('Money'),
        ('Sugar Mama');
        
 SELECT * FROM seeking;
+
+--Constraints
 
 ALTER TABLE IF EXISTS public.my_contacts
     ADD CONSTRAINT prof_id FOREIGN KEY (prof_id)
@@ -190,7 +205,7 @@ ALTER TABLE IF EXISTS public.contact_interest
 
 ALTER TABLE IF EXISTS public.contact_interest
     ADD CONSTRAINT contact_id FOREIGN KEY (contact_id)
-    REFERENCES public.my_contacts ("contact-id") MATCH SIMPLE
+    REFERENCES public.my_contacts ("contact_id") MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
@@ -198,7 +213,7 @@ ALTER TABLE IF EXISTS public.contact_interest
 
 ALTER TABLE IF EXISTS public.contact_interest
     ADD FOREIGN KEY (contact_id)
-    REFERENCES public.my_contacts ("contact-id") MATCH SIMPLE
+    REFERENCES public.my_contacts ("contact_id") MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
@@ -206,7 +221,7 @@ ALTER TABLE IF EXISTS public.contact_interest
 
 ALTER TABLE IF EXISTS public.contact_seeking
     ADD CONSTRAINT seeking_id FOREIGN KEY (seeking_id)
-    REFERENCES public.seeking ("seeking-id") MATCH SIMPLE
+    REFERENCES public.seeking ("seeking_id") MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
@@ -214,11 +229,13 @@ ALTER TABLE IF EXISTS public.contact_seeking
 
 ALTER TABLE IF EXISTS public.contact_seeking
     ADD CONSTRAINT contact_id FOREIGN KEY (contact_id)
-    REFERENCES public.my_contacts ("contact-id") MATCH SIMPLE
+    REFERENCES public.my_contacts ("contact_id") MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
-    
+
+--Left Join--
+
 SELECT 
 mc.last_name,
 mc.first_name,
@@ -241,3 +258,16 @@ ON mc.zip_code = z.zip_code
 
 LEFT JOIN status AS s
 ON mc.status_id = s.status_id;
+
+--INNER JOIN--
+
+SELECT *
+FROM my_contacts AS mc
+
+INNER JOIN interests
+ON mc.contact_id = interests.interest_id
+
+INNER JOIN status
+ON mc.contact_id = status.status_id;
+
+
