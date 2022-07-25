@@ -257,23 +257,23 @@ INNER JOIN zip_code AS z
 ON mc.zip_code = z.zip_code
 
 INNER JOIN status AS s
-ON mc.status_id = s.status_id;
+ON mc.status_id = s.status_id
 
 --INTERESTS INNER JOIN--
 
-SELECT *
-FROM my_contacts AS mc
+--SELECT *
+--FROM my_contacts AS mc
 
 INNER JOIN contact_interest
 ON mc.contact_id = contact_interest.contact_id
 
 INNER JOIN interests
-ON contact_interest.interest_id = interests.interest_id;
+ON contact_interest.interest_id = interests.interest_id
 
 --SEEKING INNER JOIN
 
-SELECT *
-FROM my_contacts AS mc
+--SELECT *
+--FROM my_contacts AS mc
 
 INNER JOIN contact_seeking
 ON mc.contact_id = contact_seeking.contact_id
