@@ -246,7 +246,9 @@ mc.birthday,
 prof.profession,
 z.city1,
 z.province,
-s.status
+s.status,
+seeking.seeking,
+interests.interests
 
 FROM my_contacts AS mc
 
