@@ -1,5 +1,5 @@
 -- Chapter 6 Code Examples
---------------------------------------------------------------
+------------------------------------------------------------
 
 -- Listing 6-1: Creating the departments and employees tables
 

@@ -234,7 +234,7 @@ ALTER TABLE IF EXISTS public.contact_seeking
     ON DELETE NO ACTION
     NOT VALID;
 
---Left Join--
+--INNER JOIN--
 
 SELECT 
 mc.last_name,
@@ -246,28 +246,39 @@ mc.birthday,
 prof.profession,
 z.city1,
 z.province,
-s.status
+s.status,
+seeking.seeking,
+interests.interests
 
 FROM my_contacts AS mc
 
-LEFT JOIN profession AS prof
+INNER JOIN profession AS prof
 ON mc.prof_id = prof.prof_id
 
-LEFT JOIN zip_code AS z
+INNER JOIN zip_code AS z
 ON mc.zip_code = z.zip_code
 
-LEFT JOIN status AS s
-ON mc.status_id = s.status_id;
+INNER JOIN status AS s
+ON mc.status_id = s.status_id
 
---INNER JOIN--
+--INTERESTS INNER JOIN--
 
-SELECT *
-FROM my_contacts AS mc
+--SELECT *
+--FROM my_contacts AS mc
+
+INNER JOIN contact_interest
+ON mc.contact_id = contact_interest.contact_id
 
 INNER JOIN interests
-ON mc.contact_id = interests.interest_id
+ON contact_interest.interest_id = interests.interest_id
 
-INNER JOIN status
-ON mc.contact_id = status.status_id;
+--SEEKING INNER JOIN
 
+--SELECT *
+--FROM my_contacts AS mc
 
+INNER JOIN contact_seeking
+ON mc.contact_id = contact_seeking.contact_id
+
+INNER JOIN seeking
+ON contact_seeking.seeking_id = seeking.seeking_id;
