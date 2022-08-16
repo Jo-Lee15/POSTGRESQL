@@ -1,5 +1,5 @@
 -- Chapter 13 Code Examples
---------------------------------------------------------------
+------------------------------------------------------------
 
 -- Commonly used string functions
 -- Full list at https://www.postgresql.org/docs/current/static/functions-string.html
